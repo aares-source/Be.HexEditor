@@ -118,42 +118,51 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="English" xml:space="preserve">
-    <value>英语</value>
+    <value>Inglés</value>
   </data>
   <data name="FileDoesNotExist" xml:space="preserve">
-    <value>文件不存在。</value>
+    <value>¡Fichero no encontrado!</value>
   </data>
   <data name="FindOperationEndOfFile" xml:space="preserve">
-    <value>查找已越过文件末尾。</value>
+    <value>¡Buscar ha llegado al final del fichero (EOF)!</value>
   </data>
   <data name="German" xml:space="preserve">
-    <value>德语</value>
+    <value>Alemán</value>
   </data>
   <data name="ProgramRestartSettings" xml:space="preserve">
-    <value>程序需要重新启动来使设置生效。</value>
+    <value>¡Se debe reiniciar el programa para que los nuevos ajustes tengan efecto!</value>
   </data>
   <data name="SaveChangesQuestion" xml:space="preserve">
-    <value>是否保存修改？</value>
+    <value>¿Guardar cambios?</value>
   </data>
   <data name="Readonly" xml:space="preserve">
-    <value> [只读]</value>
+    <value> [sólo lectura]</value>
   </data>
   <data name="OpenFailed" xml:space="preserve">
-    <value>文件被其他进程占用，无法打开。</value>
+    <value>¡Fichero bloqueado por otro proceso, no se puede abrir!</value>
   </data>
   <data name="OpenReadonly" xml:space="preserve">
-    <value>此文件已被锁定。是否以只读方式打开？</value>
+    <value>Fichero bloqueado. ¿Quieres abrirlo en modo sólo lectura?</value>
   </data>
   <data name="Japanese" xml:space="preserve">
-    <value>日语</value>
+    <value>Japonés</value>
   </data>
   <data name="Russian" xml:space="preserve">
-    <value>俄语</value>
+    <value>Ruso</value>
   </data>
   <data name="SimplifiedChinese" xml:space="preserve">
-    <value>中文(简体)</value>
+    <value>Chino simplificado</value>
+  </data>
+  <data name="Italian" xml:space="preserve">
+    <value>Italiano</value>
+  </data>
+  <data name="Byte" xml:space="preserve">
+    <value>Byte {0}</value>
+  </data>
+  <data name="NoByteSelected" xml:space="preserve">
+    <value>No se ha seleccionado un byte</value>
   </data>
   <data name="Spanish" xml:space="preserve">
-    <value>西班牙语</value>
+    <value>Español</value>
   </data>
 </root>

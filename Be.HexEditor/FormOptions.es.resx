@@ -117,43 +117,88 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="English" xml:space="preserve">
-    <value>英语</value>
+  <data name="selectLanguageLabel.Text" xml:space="preserve">
+    <value>Selecciona un idioma</value>
   </data>
-  <data name="FileDoesNotExist" xml:space="preserve">
-    <value>文件不存在。</value>
+  <data name="clearRecentFilesButton.Text" xml:space="preserve">
+    <value>Cancelar ficheros recientes</value>
   </data>
-  <data name="FindOperationEndOfFile" xml:space="preserve">
-    <value>查找已越过文件末尾。</value>
+  <data name="cancelButton.Text" xml:space="preserve">
+    <value>Cancelar</value>
   </data>
-  <data name="German" xml:space="preserve">
-    <value>德语</value>
+  <data name="recentFilesMaxlabel.Text" xml:space="preserve">
+    <value>Elementos mostrados en el menú de ficheros recientes</value>
   </data>
-  <data name="ProgramRestartSettings" xml:space="preserve">
-    <value>程序需要重新启动来使设置生效。</value>
+  <data name="generalTabPage.Text" xml:space="preserve">
+    <value>General</value>
   </data>
-  <data name="SaveChangesQuestion" xml:space="preserve">
-    <value>是否保存修改？</value>
+  <data name="recentFilesGroupBox.Text" xml:space="preserve">
+    <value>Ficheros recientes</value>
   </data>
-  <data name="Readonly" xml:space="preserve">
-    <value> [只读]</value>
+  <data name="okButton.Text" xml:space="preserve">
+    <value>OK</value>
   </data>
-  <data name="OpenFailed" xml:space="preserve">
-    <value>文件被其他进程占用，无法打开。</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="recentFilesMaxTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>45, 20</value>
   </data>
-  <data name="OpenReadonly" xml:space="preserve">
-    <value>此文件已被锁定。是否以只读方式打开？</value>
+  <data name="tabControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 12</value>
   </data>
-  <data name="Japanese" xml:space="preserve">
-    <value>日语</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Opciones</value>
   </data>
-  <data name="Russian" xml:space="preserve">
-    <value>俄语</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterScreen</value>
   </data>
-  <data name="SimplifiedChinese" xml:space="preserve">
-    <value>中文(简体)</value>
+  <data name="tabControl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="Spanish" xml:space="preserve">
-    <value>西班牙语</value>
+  <data name="useSystemLanguageCheckBox.Text" xml:space="preserve">
+    <value>Usar idioma del sistema</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="generalTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="selectLanguageLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>93, 13</value>
+  </data>
+  <data name="languageComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>135, 39</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="cancelButton.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="languageSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="languageSettingsGroupBox.Text" xml:space="preserve">
+    <value>Ajustes de idioma</value>
+  </data>
+  <data name="okButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 24</value>
+  </data>
+  <data name="recentFilesMaxlabel.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="recentFilesMaxTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 19</value>
+  </data>
+  <data name="clearRecentFilesButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 45</value>
+  </data>
+  <data name="okButton.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="$this.Language" type="System.Globalization.CultureInfo, mscorlib">
+    <value>ca</value>
+  </data>
+  <data name="$this.Localizable" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
 </root>

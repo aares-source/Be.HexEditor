@@ -77,7 +77,18 @@ namespace Be.HexEditor {
                 return ResourceManager.GetString("English", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a English.
+        /// </summary>
+        internal static string Spanish
+        {
+            get
+            {
+                return ResourceManager.GetString("Spanish", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Busca una cadena traducida similar a The file does not exist!.
         /// </summary>
