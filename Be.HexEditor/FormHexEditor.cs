@@ -1,15 +1,15 @@
-using Be.Windows.Forms;
 using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using Be.Windows.Forms;
 
 namespace Be.HexEditor
 {
     public partial class FormHexEditor : Core.FormEx
     {
-		FormFind _formFind;
-		FindOptions _findOptions = new FindOptions();
+        FormFind _formFind;
+        FindOptions _findOptions = new FindOptions();
         FormGoTo _formGoto = new FormGoTo();
         string _fileName;
 
@@ -17,26 +17,25 @@ namespace Be.HexEditor
         {
             InitializeComponent();
 
-			Init();
+            Init();
 
             hexBox.Font = new Font(SystemFonts.MessageBoxFont.FontFamily, SystemFonts.MessageBoxFont.Size, SystemFonts.MessageBoxFont.Style);
 
-			this.toolStrip.Renderer.RenderToolStripBorder += new ToolStripRenderEventHandler(Renderer_RenderToolStripBorder);
+            toolStrip.Renderer.RenderToolStripBorder += new ToolStripRenderEventHandler(Renderer_RenderToolStripBorder);
         }
 
-		/// <summary>
-		/// Removes the border on the right of the tool strip
-		/// </summary>
-		/// <param name="sender">the renderer</param>
-		/// <param name="e">the event args</param>
-		void Renderer_RenderToolStripBorder(object sender, ToolStripRenderEventArgs e)
-		{
-			if (e.ToolStrip.GetType() != typeof(ToolStrip))
-				return;
+        /// <summary>
+        /// Removes the border on the right of the tool strip
+        /// </summary>
+        /// <param name="sender">the renderer</param>
+        /// <param name="e">the event args</param>
+        void Renderer_RenderToolStripBorder(object sender, ToolStripRenderEventArgs e)
+        {
+            if (e.ToolStrip.GetType() != typeof(ToolStrip)) return;
 
-			e.Graphics.DrawLine(new Pen(new SolidBrush(SystemColors.Control)), new Point(toolStrip.Width - 1, 0),
-				new Point(toolStrip.Width - 1, toolStrip.Height));
-		}
+            e.Graphics.DrawLine(new Pen(new SolidBrush(SystemColors.Control)), new Point(toolStrip.Width - 1, 0),
+                new Point(toolStrip.Width - 1, toolStrip.Height));
+        }
 
         /// <summary>
         /// Initializes the hex editor´s main form
@@ -47,46 +46,63 @@ namespace Be.HexEditor
 
             ManageAbility();
 
-			UpdateBitControlVisibility();
+            UpdateBitControlVisibility();
 
-			//var selected = ;
-			var defConverter = new DefaultByteCharConverter();
-			ToolStripMenuItem miDefault = new ToolStripMenuItem();
-			miDefault.Text = defConverter.ToString();
-			miDefault.Tag = defConverter;
-			miDefault.Click += new EventHandler(encodingMenuItem_Clicked);
+            //var selected = ;
+            var defConverter = new DefaultByteCharConverter();
+            ToolStripMenuItem miDefault = new ToolStripMenuItem();
+            miDefault.Text = defConverter.ToString();
+            miDefault.Tag = defConverter;
+            miDefault.Click += new EventHandler(EncodingMenuItem_Clicked);
 
-			var ebcdicConverter = new EbcdicByteCharProvider();
-			ToolStripMenuItem miEbcdic = new ToolStripMenuItem();
-			miEbcdic.Text = ebcdicConverter.ToString();
-			miEbcdic.Tag = ebcdicConverter;
-			miEbcdic.Click += new EventHandler(encodingMenuItem_Clicked);
+            encodingToolStripComboBox.Items.Add(defConverter);
+            encodingToolStripMenuItem.DropDownItems.Add(miDefault);
+            encodingToolStripComboBox.SelectedIndex = 0;
 
-			encodingToolStripComboBox.Items.Add(defConverter);
-			encodingToolStripComboBox.Items.Add(ebcdicConverter);
+            //500  : IBM EBCDIC;
+            //932  : Japanese (Shift-JIS);
+            //949  : Korean (Unified Hangul Code);
+            //950  : Chinese Traditional (Big5);
+            //936  : Chinese Simplified (GB2312);
+            //65001: Unicode (UTF-8)
+            //1200 : Unicode UTF-16, little endian byte order;
+            //1201 : Unicode UTF-16, big endian byte order;
+            int[] codepages = { 500, 932, 949, 950, 936, 65001, 1200, 1201 };
+            foreach (int codepage in codepages)
+            {
+                try
+                {
+                    var encodeConverter = new EncodingByteCharProvider(codepage);
+                    ToolStripMenuItem miEbcdic = new ToolStripMenuItem();
+                    miEbcdic.Text = encodeConverter.ToString();
+                    miEbcdic.Tag = encodeConverter;
+                    miEbcdic.Click += new EventHandler(EncodingMenuItem_Clicked);
 
-			encodingToolStripMenuItem.DropDownItems.Add(miDefault);
-			encodingToolStripMenuItem.DropDownItems.Add(miEbcdic);
-			encodingToolStripComboBox.SelectedIndex = 0;
+                    encodingToolStripComboBox.Items.Add(encodeConverter);
+                    encodingToolStripMenuItem.DropDownItems.Add(miEbcdic);
+                }
+                catch { }
+            }
+
+            HexBox.ByteGroupingType[] byteGroupingTypes = (HexBox.ByteGroupingType[])Enum.GetValues(typeof(HexBox.ByteGroupingType));
+            foreach (var byteGroupingType in byteGroupingTypes) ByteGroupToolStripComboBox.Items.Add(byteGroupingType);
+            ByteGroupToolStripComboBox.SelectedIndex = 0;
+
+            for (int idx = 0; idx <= 0x10; idx++) GroupSizeToolStripComboBox.Items.Add("GroupSize:" + idx);
+            GroupSizeToolStripComboBox.SelectedIndex = 0;
 
             UpdateFormWidth();
         }
 
-		void encodingMenuItem_Clicked(object sender, EventArgs e)
-		{
-			var converter = ((ToolStripMenuItem)sender).Tag;
-			encodingToolStripComboBox.SelectedItem = converter;
-		}
+        void EncodingMenuItem_Clicked(object sender, EventArgs e) => encodingToolStripComboBox.SelectedItem = ((ToolStripMenuItem)sender).Tag;
 
         /// <summary>
         /// Updates the File size status label
         /// </summary>
         void UpdateFileSizeStatus()
         {
-            if (this.hexBox.ByteProvider == null)
-                this.fileSizeToolStripStatusLabel.Text = string.Empty;
-            else
-                this.fileSizeToolStripStatusLabel.Text = Util.GetDisplayBytes(this.hexBox.ByteProvider.Length);
+            if (hexBox.ByteProvider == null) fileSizeToolStripStatusLabel.Text = string.Empty;
+            else fileSizeToolStripStatusLabel.Text = Util.GetDisplayBytes(hexBox.ByteProvider.Length);
         }
 
         /// <summary>
@@ -98,15 +114,11 @@ namespace Be.HexEditor
             if (_fileName != null && _fileName.Length > 0)
             {
                 string textFormat = "{0}{1} - {2}";
-                string readOnly = ((DynamicFileByteProvider)hexBox.ByteProvider).ReadOnly
-                    ? strings.Readonly : "";
+                string readOnly = ((DynamicFileByteProvider)hexBox.ByteProvider).ReadOnly ? strings.Readonly : "";
                 string text = Path.GetFileName(_fileName);
-                this.Text = string.Format(textFormat, text, readOnly, Program.SoftwareName);
+                Text = string.Format(textFormat, text, readOnly, Program.SoftwareName);
             }
-            else
-            {
-                this.Text = Program.SoftwareName;
-            }
+            else Text = Program.SoftwareName;
         }
 
         /// <summary>
@@ -143,12 +155,10 @@ namespace Be.HexEditor
         /// </summary>
         void ManageAbilityForCopyAndPaste()
         {
-            copyHexStringToolStripMenuItem.Enabled = 
-                copyToolStripSplitButton.Enabled = copyToolStripMenuItem.Enabled = hexBox.CanCopy();
+            copyHexToolStripMenuItem.Enabled = copyToolStripSplitButton.Enabled = copyToolStripMenuItem.Enabled = hexBox.CanCopy();
 
             cutToolStripButton.Enabled = cutToolStripMenuItem.Enabled = hexBox.CanCut();
-            pasteToolStripSplitButton.Enabled = pasteToolStripMenuItem.Enabled = hexBox.CanPaste();
-            pasteHexToolStripMenuItem.Enabled = pasteHexToolStripMenuItem1.Enabled = hexBox.CanPasteHex();
+            pasteHexToolStripMenuItem.Enabled = pasteToolStripSplitButton.Enabled = pasteToolStripMenuItem.Enabled = hexBox.CanPaste();
         }
 
         /// <summary>
@@ -156,10 +166,7 @@ namespace Be.HexEditor
         /// </summary>
         void OpenFile()
         {
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                OpenFile(openFileDialog.FileName);
-            }
+            if (openFileDialog.ShowDialog() == DialogResult.OK) OpenFile(openFileDialog.FileName);
         }
 
         /// <summary>
@@ -233,8 +240,7 @@ namespace Be.HexEditor
         /// </summary>
         void SaveFile()
         {
-            if (hexBox.ByteProvider == null)
-                return;
+            if (hexBox.ByteProvider == null) return;
 
             try
             {
@@ -257,8 +263,7 @@ namespace Be.HexEditor
         /// <returns>OK, if the current file was closed.</returns>
         DialogResult CloseFile()
         {
-            if (hexBox.ByteProvider == null)
-                return DialogResult.OK;
+            if (hexBox.ByteProvider == null) return DialogResult.OK;
 
             try
 
@@ -275,14 +280,8 @@ namespace Be.HexEditor
                         SaveFile();
                         CleanUp();
                     }
-                    else if (res == DialogResult.No)
-                    {
-                        CleanUp();
-                    }
-                    else if (res == DialogResult.Cancel)
-                    {
-                        return res;
-                    }
+                    else if (res == DialogResult.No) CleanUp();
+                    else if (res == DialogResult.Cancel) return res;
 
                     return res;
                 }
@@ -303,8 +302,8 @@ namespace Be.HexEditor
             if (hexBox.ByteProvider != null)
             {
                 IDisposable byteProvider = hexBox.ByteProvider as IDisposable;
-                if (byteProvider != null)
-                    byteProvider.Dispose();
+                if (byteProvider != null) byteProvider.Dispose();
+
                 hexBox.ByteProvider = null;
             }
             _fileName = null;
@@ -316,35 +315,35 @@ namespace Be.HexEditor
         /// </summary>
         void Find()
         {
-			ShowFind();
+            ShowFind();
         }
 
-		/// <summary>
-		/// Creates a new FormFind dialog
-		/// </summary>
-		/// <returns>the form find dialog</returns>
-		FormFind ShowFind()
-		{
-			if (_formFind == null || _formFind.IsDisposed)
-			{
-				_formFind = new FormFind();
-				_formFind.HexBox = this.hexBox;
-				_formFind.FindOptions = _findOptions;
-				_formFind.Show(this);
-			}
-			else
-			{
-				_formFind.Focus();
-			}
-			return _formFind;
-		}
+        /// <summary>
+        /// Creates a new FormFind dialog
+        /// </summary>
+        /// <returns>the form find dialog</returns>
+        FormFind ShowFind()
+        {
+            if (_formFind == null || _formFind.IsDisposed)
+            {
+                _formFind = new FormFind();
+                _formFind.HexBox = hexBox;
+                _formFind.FindOptions = _findOptions;
+                _formFind.Show(this);
+            }
+            else
+            {
+                _formFind.Focus();
+            }
+            return _formFind;
+        }
 
         /// <summary>
         /// Find next match
         /// </summary>
         void FindNext()
         {
-			ShowFind().FindNext();
+            ShowFind().FindNext();
         }
 
         /// <summary>
@@ -385,18 +384,10 @@ namespace Be.HexEditor
         {
             object oFileNames = e.Data.GetData(DataFormats.FileDrop);
             string[] fileNames = (string[])oFileNames;
-            if (fileNames.Length == 1)
-            {
-                OpenFile(fileNames[0]);
-            }
+            if (fileNames.Length == 1) OpenFile(fileNames[0]);
         }
 
         void hexBox_Copied(object sender, EventArgs e)
-        {
-            ManageAbilityForCopyAndPaste();
-        }
-
-        void hexBox_CopiedHex(object sender, EventArgs e)
         {
             ManageAbilityForCopyAndPaste();
         }
@@ -413,29 +404,29 @@ namespace Be.HexEditor
 
         void Position_Changed(object sender, EventArgs e)
         {
-            this.toolStripStatusLabel.Text = string.Format("Ln {0}    Col {1}",
+            toolStripStatusLabel.Text = string.Format("Ln {0}    Col {1}",
                 hexBox.CurrentLine, hexBox.CurrentPositionInLine);
 
-			string bitPresentation = string.Empty;
+            string bitPresentation = string.Empty;
 
-			byte? currentByte = hexBox.ByteProvider != null && hexBox.ByteProvider.Length > hexBox.SelectionStart
-				? hexBox.ByteProvider.ReadByte(hexBox.SelectionStart)
-				: (byte?)null;
+            byte? currentByte = hexBox.ByteProvider != null && hexBox.ByteProvider.Length > hexBox.SelectionStart
+                ? hexBox.ByteProvider.ReadByte(hexBox.SelectionStart)
+                : (byte?)null;
 
-			BitInfo bitInfo = currentByte != null ? new BitInfo((byte)currentByte, hexBox.SelectionStart) : null;
+            BitInfo bitInfo = currentByte != null ? new BitInfo((byte)currentByte, hexBox.SelectionStart) : null;
 
-			if (bitInfo != null)
-			{
-				byte currentByteNotNull = (byte)currentByte;
-				bitPresentation = string.Format("Bits of Byte {0}: {1}"
-					, hexBox.SelectionStart
-					, bitInfo.ToString()
-					);
-			}
+            if (bitInfo != null)
+            {
+                byte currentByteNotNull = (byte)currentByte;
+                bitPresentation = string.Format("Bits of Byte {0}: {1}"
+                    , hexBox.SelectionStart
+                    , bitInfo.ToString()
+                    );
+            }
 
-			this.bitToolStripStatusLabel.Text = bitPresentation;
+            bitToolStripStatusLabel.Text = bitPresentation;
 
-			this.bitControl1.BitInfo = bitInfo;
+            bitControl1.BitInfo = bitInfo;
         }
 
         void byteProvider_Changed(object sender, EventArgs e)
@@ -458,54 +449,81 @@ namespace Be.HexEditor
             SaveFile();
         }
 
+        private void close_Click(object sender, EventArgs e)
+        {
+            if (hexBox.ByteProvider == null) return;
+
+            try
+            {
+                DynamicFileByteProvider dynamicFileByteProvider = hexBox.ByteProvider as DynamicFileByteProvider;
+                dynamicFileByteProvider.Changed -= new EventHandler(byteProvider_Changed);
+                dynamicFileByteProvider.LengthChanged -= new EventHandler(byteProvider_LengthChanged);
+                dynamicFileByteProvider.Dispose();
+                dynamicFileByteProvider = null;
+                hexBox.ByteProvider = null;
+                _fileName = null;
+                DisplayText();
+                UpdateFileSizeStatus();
+            }
+            catch (Exception ex1)
+            {
+                Program.ShowError(ex1);
+            }
+            finally
+            {
+                ManageAbility();
+            }
+
+        }
+
         void cut_Click(object sender, EventArgs e)
         {
-            this.hexBox.Cut();
+            hexBox.Cut();
         }
 
         private void copy_Click(object sender, EventArgs e)
         {
-            this.hexBox.Copy();
-        }
-
-        void paste_Click(object sender, EventArgs e)
-        {
-            this.hexBox.Paste();
+            hexBox.Copy();
         }
 
         private void copyHex_Click(object sender, EventArgs e)
         {
-            this.hexBox.CopyHex();
+            hexBox.Copy(true);
         }
 
-        private void pasteHex_Click(object sender, EventArgs e)
+        void paste_Click(object sender, EventArgs e)
         {
-            this.hexBox.PasteHex();
+            hexBox.Paste();
+        }
+
+        void pasteHex_Click(object sender, EventArgs e)
+        {
+            hexBox.Paste(true);
         }
 
         void find_Click(object sender, EventArgs e)
         {
-            this.Find();
+            Find();
         }
 
         void findNext_Click(object sender, EventArgs e)
         {
-            this.FindNext();
+            FindNext();
         }
 
         void goTo_Click(object sender, EventArgs e)
         {
-            this.Goto();
+            Goto();
         }
 
         void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.hexBox.SelectAll();
+            hexBox.SelectAll();
         }
 
         void exit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         void about_Click(object sender, EventArgs e)
@@ -516,7 +534,7 @@ namespace Be.HexEditor
         void recentFiles_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             RecentFileHandler.FileMenuItem fmi = (RecentFileHandler.FileMenuItem)e.ClickedItem;
-            this.OpenFile(fmi.FileName);
+            OpenFile(fmi.FileName);
         }
 
         void options_Click(object sender, EventArgs e)
@@ -527,48 +545,46 @@ namespace Be.HexEditor
         void FormHexEditor_FormClosing(object sender, FormClosingEventArgs e)
         {
             var result = CloseFile();
-            if (result == DialogResult.Cancel)
-                e.Cancel = true;
-		}
+            if (result == DialogResult.Cancel) e.Cancel = true;
+        }
 
-		void toolStripEncoding_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			hexBox.ByteCharConverter = encodingToolStripComboBox.SelectedItem as IByteCharConverter;
+        void toolStripEncoding_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            hexBox.ByteCharConverter = encodingToolStripComboBox.SelectedItem as IByteCharConverter;
 
-			foreach (ToolStripMenuItem encodingMenuItem in encodingToolStripMenuItem.DropDownItems)
-				encodingMenuItem.Checked = (encodingMenuItem.Tag == hexBox.ByteCharConverter);
-		}
+            foreach (ToolStripMenuItem encodingMenuItem in encodingToolStripMenuItem.DropDownItems)
+                encodingMenuItem.Checked = (encodingMenuItem.Tag == hexBox.ByteCharConverter);
+        }
 
-		void bitsToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
-		{
-			UpdateBitControlVisibility();
-		}
+        void bitsToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateBitControlVisibility();
+        }
 
-		void UpdateBitControlVisibility()
-		{
-            if (Util.DesignMode)
-                return;
-			//if (this.bitControl1.Visible == bitsToolStripMenuItem.Checked)
-			//{
-			//    return;
-			//}
-			if (bitsToolStripMenuItem.Checked)
-			{
+        void UpdateBitControlVisibility()
+        {
+            if (Util.DesignMode) return;
+            //if (this.bitControl1.Visible == bitsToolStripMenuItem.Checked)
+            //{
+            //    return;
+            //}
+            if (bitsToolStripMenuItem.Checked)
+            {
                 hexBox.Height -= bitControl1.Height;
-				bitControl1.Visible = true;
-			}
-			else
-			{
+                bitControl1.Visible = true;
+            }
+            else
+            {
                 hexBox.Height += bitControl1.Height;
-				bitControl1.Visible = false;
-			}
-		}
+                bitControl1.Visible = false;
+            }
+        }
 
-		void bitControl1_BitChanged(object sender, EventArgs e)
-		{
-			hexBox.ByteProvider.WriteByte(bitControl1.BitInfo.Position, bitControl1.BitInfo.Value);
-			hexBox.Invalidate();
-		}
+        void bitControl1_BitChanged(object sender, EventArgs e)
+        {
+            hexBox.ByteProvider.WriteByte(bitControl1.BitInfo.Position, bitControl1.BitInfo.Value);
+            hexBox.Invalidate();
+        }
 
         void menuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
@@ -582,7 +598,23 @@ namespace Be.HexEditor
 
         void UpdateFormWidth()
         {
-            this.Width = this.hexBox.RequiredWidth + 70;
+            Width = hexBox.RequiredWidth + 70;
         }
-	}
+
+        private void ByteGroupToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var byteGroupComboBox = (ToolStripComboBox)sender;
+            HexBox.ByteGroupingType byteGroupingType = (HexBox.ByteGroupingType)byteGroupComboBox.SelectedItem;
+            hexBox.ByteGrouping = byteGroupingType;
+        }
+
+        private void GroupSizeToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var groupSizeComboBox = (ToolStripComboBox)sender;
+            int groupSize = groupSizeComboBox.SelectedIndex;
+
+            hexBox.GroupSeparatorVisible = groupSize > 0;
+            hexBox.GroupSize = groupSize;
+        }
+    }
 }

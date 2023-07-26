@@ -185,10 +185,29 @@ namespace Be.Windows.Forms
 			return res;
 		}
 
-		/// <summary>
-		/// Gets the length of the file.
-		/// </summary>
-		public long Length
+        /// <summary>
+        /// See <see cref="IByteProvider.ReadBytes" /> for more information.
+        /// </summary>
+        public byte[] ReadBytes(long index, int length)
+        {
+            byte[] buffer = new byte[length];
+            for (int idx = 0; idx < length; idx++)
+            {
+                if (index + idx > this.Length - 1)
+                {
+                    Array.Resize(ref buffer, idx);
+                    break;
+                }
+                buffer[idx] = ReadByte(index + idx);
+            }
+
+            return buffer;
+        }
+
+        /// <summary>
+        /// Gets the length of the file.
+        /// </summary>
+        public long Length
 		{
 			get
 			{
@@ -209,10 +228,18 @@ namespace Be.Windows.Forms
 			OnChanged(EventArgs.Empty);
 		}
 
-		/// <summary>
-		/// Not supported
-		/// </summary>
-		public void DeleteBytes(long index, long length)
+        /// <summary>
+        /// See <see cref="IByteProvider.WriteBytes" /> for more information.
+        /// </summary>
+        public void WriteBytes(long index, byte[] values)
+        {
+            for (int idx = 0; idx < values.Length; idx++) WriteByte(index + idx, values[idx]);
+        }
+
+        /// <summary>
+        /// Not supported
+        /// </summary>
+        public void DeleteBytes(long index, long length)
 		{
 			throw new NotSupportedException("FileByteProvider.DeleteBytes");
 		}

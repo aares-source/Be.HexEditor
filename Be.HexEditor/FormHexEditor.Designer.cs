@@ -36,21 +36,22 @@ namespace Be.HexEditor
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.saveToolStripMenuItem = new Be.HexEditor.Core.ToolStripMenuItemEx();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.recentFilesToolStripMenuItem = new Be.HexEditor.Core.ToolStripMenuItemEx();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new Be.HexEditor.Core.ToolStripMenuItemEx();
             this.editToolStripMenuItem = new Be.HexEditor.Core.ToolStripMenuItemEx();
             this.cutToolStripMenuItem = new Be.HexEditor.Core.ToolStripMenuItemEx();
             this.copyToolStripMenuItem = new Be.HexEditor.Core.ToolStripMenuItemEx();
+            this.copyHexToolStripMenuItem = new Be.HexEditor.Core.ToolStripMenuItemEx();
             this.pasteToolStripMenuItem = new Be.HexEditor.Core.ToolStripMenuItemEx();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.copyHexStringToolStripMenuItem = new Be.HexEditor.Core.ToolStripMenuItemEx();
             this.pasteHexToolStripMenuItem = new Be.HexEditor.Core.ToolStripMenuItemEx();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.findToolStripMenuItem = new Be.HexEditor.Core.ToolStripMenuItemEx();
             this.findNextToolStripMenuItem = new Be.HexEditor.Core.ToolStripMenuItemEx();
             this.goToToolStripMenuItem = new Be.HexEditor.Core.ToolStripMenuItemEx();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.selectAllToolStripMenuItem = new Be.HexEditor.Core.ToolStripMenuItemEx();
             this.viewToolStripMenuItem = new Be.HexEditor.Core.ToolStripMenuItemEx();
             this.encodingToolStripMenuItem = new Be.HexEditor.Core.ToolStripMenuItemEx();
@@ -71,6 +72,9 @@ namespace Be.HexEditor
             this.pasteToolStripMenuItem1 = new Be.HexEditor.Core.ToolStripMenuItemEx();
             this.pasteHexToolStripMenuItem1 = new Be.HexEditor.Core.ToolStripMenuItemEx();
             this.encodingToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.GroupSizeToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
+            this.ByteGroupToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.fileSizeToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -106,6 +110,8 @@ namespace Be.HexEditor
             this.toolStripSeparator,
             this.saveToolStripMenuItem,
             this.toolStripSeparator2,
+            this.closeToolStripMenuItem,
+            this.toolStripSeparator5,
             this.recentFilesToolStripMenuItem,
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
@@ -142,6 +148,17 @@ namespace Be.HexEditor
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             // 
+            // closeToolStripMenuItem
+            // 
+            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            resources.ApplyResources(this.closeToolStripMenuItem, "closeToolStripMenuItem");
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.close_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            resources.ApplyResources(this.toolStripSeparator5, "toolStripSeparator5");
+            // 
             // recentFilesToolStripMenuItem
             // 
             resources.ApplyResources(this.recentFilesToolStripMenuItem, "recentFilesToolStripMenuItem");
@@ -164,15 +181,14 @@ namespace Be.HexEditor
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cutToolStripMenuItem,
             this.copyToolStripMenuItem,
+            this.copyHexToolStripMenuItem,
             this.pasteToolStripMenuItem,
-            this.toolStripSeparator3,
-            this.copyHexStringToolStripMenuItem,
             this.pasteHexToolStripMenuItem,
-            this.toolStripSeparator4,
+            this.toolStripSeparator3,
             this.findToolStripMenuItem,
             this.findNextToolStripMenuItem,
             this.goToToolStripMenuItem,
-            this.toolStripSeparator5,
+            this.toolStripSeparator4,
             this.selectAllToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             resources.ApplyResources(this.editToolStripMenuItem, "editToolStripMenuItem");
@@ -197,6 +213,13 @@ namespace Be.HexEditor
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.copy_Click);
             // 
+            // copyHexToolStripMenuItem
+            // 
+            this.copyHexToolStripMenuItem.Image = global::Be.HexEditor.ScalingImages.Copy16;
+            resources.ApplyResources(this.copyHexToolStripMenuItem, "copyHexToolStripMenuItem");
+            this.copyHexToolStripMenuItem.Name = "copyHexToolStripMenuItem";
+            this.copyHexToolStripMenuItem.Click += new System.EventHandler(this.copyHex_Click);
+            // 
             // pasteToolStripMenuItem
             // 
             this.pasteToolStripMenuItem.Image = global::Be.HexEditor.ScalingImages.Paste16;
@@ -207,27 +230,20 @@ namespace Be.HexEditor
             this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
             this.pasteToolStripMenuItem.Click += new System.EventHandler(this.paste_Click);
             // 
+            // pasteHexToolStripMenuItem
+            // 
+            this.pasteHexToolStripMenuItem.Image = global::Be.HexEditor.ScalingImages.Paste16;
+            this.pasteHexToolStripMenuItem.Image16 = global::Be.HexEditor.ScalingImages.Paste16;
+            this.pasteHexToolStripMenuItem.Image24 = global::Be.HexEditor.ScalingImages.Paste24;
+            this.pasteHexToolStripMenuItem.Image32 = global::Be.HexEditor.ScalingImages.Paste32;
+            resources.ApplyResources(this.pasteHexToolStripMenuItem, "pasteHexToolStripMenuItem");
+            this.pasteHexToolStripMenuItem.Name = "pasteHexToolStripMenuItem";
+            this.pasteHexToolStripMenuItem.Click += new System.EventHandler(this.pasteHex_Click);
+            // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
-            // 
-            // copyHexStringToolStripMenuItem
-            // 
-            this.copyHexStringToolStripMenuItem.Name = "copyHexStringToolStripMenuItem";
-            resources.ApplyResources(this.copyHexStringToolStripMenuItem, "copyHexStringToolStripMenuItem");
-            this.copyHexStringToolStripMenuItem.Click += new System.EventHandler(this.copyHex_Click);
-            // 
-            // pasteHexToolStripMenuItem
-            // 
-            this.pasteHexToolStripMenuItem.Name = "pasteHexToolStripMenuItem";
-            resources.ApplyResources(this.pasteHexToolStripMenuItem, "pasteHexToolStripMenuItem");
-            this.pasteHexToolStripMenuItem.Click += new System.EventHandler(this.pasteHex_Click);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
             // 
             // findToolStripMenuItem
             // 
@@ -255,10 +271,10 @@ namespace Be.HexEditor
             resources.ApplyResources(this.goToToolStripMenuItem, "goToToolStripMenuItem");
             this.goToToolStripMenuItem.Click += new System.EventHandler(this.goTo_Click);
             // 
-            // toolStripSeparator5
+            // toolStripSeparator4
             // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            resources.ApplyResources(this.toolStripSeparator5, "toolStripSeparator5");
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
             // 
             // selectAllToolStripMenuItem
             // 
@@ -324,7 +340,10 @@ namespace Be.HexEditor
             this.cutToolStripButton,
             this.copyToolStripSplitButton,
             this.pasteToolStripSplitButton,
-            this.encodingToolStripComboBox});
+            this.encodingToolStripComboBox,
+            this.toolStripSeparator7,
+            this.GroupSizeToolStripComboBox,
+            this.ByteGroupToolStripComboBox});
             this.toolStrip.Name = "toolStrip";
             // 
             // openToolStripButton
@@ -429,6 +448,29 @@ namespace Be.HexEditor
             this.encodingToolStripComboBox.Name = "encodingToolStripComboBox";
             this.encodingToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.toolStripEncoding_SelectedIndexChanged);
             // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            resources.ApplyResources(this.toolStripSeparator7, "toolStripSeparator7");
+            // 
+            // GroupSizeToolStripComboBox
+            // 
+            this.GroupSizeToolStripComboBox.AutoToolTip = true;
+            this.GroupSizeToolStripComboBox.BackColor = System.Drawing.SystemColors.Control;
+            this.GroupSizeToolStripComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            resources.ApplyResources(this.GroupSizeToolStripComboBox, "GroupSizeToolStripComboBox");
+            this.GroupSizeToolStripComboBox.Name = "GroupSizeToolStripComboBox";
+            this.GroupSizeToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.GroupSizeToolStripComboBox_SelectedIndexChanged);
+            // 
+            // ByteGroupToolStripComboBox
+            // 
+            this.ByteGroupToolStripComboBox.AutoToolTip = true;
+            this.ByteGroupToolStripComboBox.BackColor = System.Drawing.SystemColors.Control;
+            this.ByteGroupToolStripComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            resources.ApplyResources(this.ByteGroupToolStripComboBox, "ByteGroupToolStripComboBox");
+            this.ByteGroupToolStripComboBox.Name = "ByteGroupToolStripComboBox";
+            this.ByteGroupToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.ByteGroupToolStripComboBox_SelectedIndexChanged);
+            // 
             // statusStrip
             // 
             this.statusStrip.BackColor = System.Drawing.SystemColors.Control;
@@ -481,9 +523,18 @@ namespace Be.HexEditor
             this.hexBox.BuiltInContextMenu.PasteMenuItemImage = global::Be.HexEditor.images.PasteHS;
             this.hexBox.BuiltInContextMenu.PasteMenuItemText = resources.GetString("hexBox.BuiltInContextMenu.PasteMenuItemText");
             this.hexBox.BuiltInContextMenu.SelectAllMenuItemText = resources.GetString("hexBox.BuiltInContextMenu.SelectAllMenuItemText");
+            this.hexBox.ByteGrouping = Be.Windows.Forms.HexBox.ByteGroupingType.B04;
+            this.hexBox.ChangedFinishForeColor = System.Drawing.Color.LimeGreen;
             this.hexBox.ColumnInfoVisible = true;
-            this.hexBox.HexCasing = Be.Windows.Forms.HexCasing.Lower;
-            this.hexBox.InfoForeColor = System.Drawing.Color.Gray;
+            this.hexBox.EnableAutoChangedPosSetFinish = false;
+            this.hexBox.EnableCut = false;
+            this.hexBox.EnableDelete = false;
+            this.hexBox.EnableOverwritePaste = true;
+            this.hexBox.EnablePaste = true;
+            this.hexBox.EnableRetainChangedFinishPos = false;
+            this.hexBox.EnableRetainChangedPos = false;
+            this.hexBox.GroupSeparatorVisible = true;
+            this.hexBox.KeyDownControlCContentType = Be.Windows.Forms.HexBox.StringContentType.Char;
             this.hexBox.LineInfoVisible = true;
             this.hexBox.Name = "hexBox";
             this.hexBox.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
@@ -495,7 +546,6 @@ namespace Be.HexEditor
             this.hexBox.CurrentLineChanged += new System.EventHandler(this.Position_Changed);
             this.hexBox.CurrentPositionInLineChanged += new System.EventHandler(this.Position_Changed);
             this.hexBox.Copied += new System.EventHandler(this.hexBox_Copied);
-            this.hexBox.CopiedHex += new System.EventHandler(this.hexBox_CopiedHex);
             this.hexBox.RequiredWidthChanged += new System.EventHandler(this.hexBox_RequiredWidthChanged);
             this.hexBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.hexBox_DragDrop);
             this.hexBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.hexBox_DragEnter);
@@ -547,7 +597,6 @@ namespace Be.HexEditor
         private Core.ToolStripMenuItemEx cutToolStripMenuItem;
         private Core.ToolStripMenuItemEx copyToolStripMenuItem;
         private Core.ToolStripMenuItemEx pasteToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private Core.ToolStripMenuItemEx findToolStripMenuItem;
         private Core.ToolStripMenuItemEx toolsToolStripMenuItem;
         private Core.ToolStripMenuItemEx optionsToolStripMenuItem;
@@ -568,23 +617,28 @@ namespace Be.HexEditor
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripStatusLabel fileSizeToolStripStatusLabel;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private Core.ToolStripMenuItemEx copyHexStringToolStripMenuItem;
-        private Core.ToolStripMenuItemEx pasteHexToolStripMenuItem;
+        private Core.ToolStripMenuItemEx copyHexToolStripMenuItem;
         private Core.ToolStripSplitButtonEx copyToolStripSplitButton;
         private Core.ToolStripMenuItemEx copyToolStripMenuItem1;
         private Core.ToolStripMenuItemEx copyHexToolStripMenuItem1;
         private Core.ToolStripSplitButtonEx pasteToolStripSplitButton;
         private Core.ToolStripMenuItemEx pasteToolStripMenuItem1;
         private Core.ToolStripMenuItemEx pasteHexToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private Core.ToolStripMenuItemEx selectAllToolStripMenuItem;
         public RecentFileHandler RecentFileHandler;
-		private System.Windows.Forms.ToolStripStatusLabel bitToolStripStatusLabel;
-		private System.Windows.Forms.ToolStripComboBox encodingToolStripComboBox;
-		private Core.ToolStripMenuItemEx viewToolStripMenuItem;
-		private Core.ToolStripMenuItemEx encodingToolStripMenuItem;
-		private Core.ToolStripMenuItemEx bitsToolStripMenuItem;
-		private BitControl bitControl1;
-		private System.Windows.Forms.Panel bodyPanel;
+        private System.Windows.Forms.ToolStripStatusLabel bitToolStripStatusLabel;
+        private System.Windows.Forms.ToolStripComboBox encodingToolStripComboBox;
+        private Core.ToolStripMenuItemEx viewToolStripMenuItem;
+        private Core.ToolStripMenuItemEx encodingToolStripMenuItem;
+        private Core.ToolStripMenuItemEx bitsToolStripMenuItem;
+        private BitControl bitControl1;
+        private System.Windows.Forms.Panel bodyPanel;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.ToolStripComboBox ByteGroupToolStripComboBox;
+        private System.Windows.Forms.ToolStripComboBox GroupSizeToolStripComboBox;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private Core.ToolStripMenuItemEx pasteHexToolStripMenuItem;
     }
 }
