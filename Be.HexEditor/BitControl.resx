@@ -137,9 +137,6 @@
   <data name="&gt;&gt;lblValue.Name" xml:space="preserve">
     <value>lblValue</value>
   </data>
-  <data name="&gt;&gt;lblValue.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;lblValue.Parent" xml:space="preserve">
     <value>flowLayoutPanel</value>
   </data>
@@ -163,9 +160,6 @@
   </data>
   <data name="&gt;&gt;lblBit.Name" xml:space="preserve">
     <value>lblBit</value>
-  </data>
-  <data name="&gt;&gt;lblBit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lblBit.Parent" xml:space="preserve">
     <value>flowLayoutPanel</value>
@@ -201,9 +195,6 @@
   <data name="&gt;&gt;pnBitsEditor.Name" xml:space="preserve">
     <value>pnBitsEditor</value>
   </data>
-  <data name="&gt;&gt;pnBitsEditor.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;pnBitsEditor.Parent" xml:space="preserve">
     <value>flowLayoutPanel</value>
   </data>
@@ -227,9 +218,6 @@
   </data>
   <data name="&gt;&gt;flowLayoutPanel.Name" xml:space="preserve">
     <value>flowLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;flowLayoutPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;flowLayoutPanel.Parent" xml:space="preserve">
     <value>$this</value>
@@ -261,18 +249,15 @@
   <data name="&gt;&gt;pnBitsHeader.Name" xml:space="preserve">
     <value>pnBitsHeader</value>
   </data>
-  <data name="&gt;&gt;pnBitsHeader.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;pnBitsHeader.Parent" xml:space="preserve">
     <value>flowLayoutPanel</value>
   </data>
   <data name="&gt;&gt;pnBitsHeader.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="$this.Localizable" type="System.Boolean, mscorlib">
     <value>True</value>
-  </metadata>
+  </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>96, 96</value>
   </data>
@@ -281,8 +266,5 @@
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>BitControl</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

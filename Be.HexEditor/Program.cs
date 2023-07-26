@@ -1,15 +1,14 @@
-using System;
-using System.Windows.Forms;
-using System.Threading;
-using System.Globalization;
 using Be.HexEditor.Properties;
-using Be.Windows.Forms;
+using System;
+using System.Globalization;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Be.HexEditor
 {
     class Program
     {
-        public const string SoftwareName = "Be.HexEditor";
+        public const string SoftwareName = "Hex Editor";
 
         public static FormHexEditor ApplictionForm;
 

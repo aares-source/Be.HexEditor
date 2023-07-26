@@ -68,7 +68,8 @@ namespace Be.Windows.Forms
         /// The IBM EBCDIC code page 500 encoding. Note that this is not always supported by .NET,
         /// the underlying platform has to provide support for it.
         /// </summary>
-        private Encoding _ebcdicEncoding = Encoding.GetEncoding(500);
+        // private Encoding _ebcdicEncoding = Encoding.GetEncoding(500);
+        private Encoding _ebcdicEncoding = null; //  Encoding.GetEncoding(500);
 
         /// <summary>
         /// Returns the EBCDIC character corresponding to the byte passed across.
@@ -77,8 +78,11 @@ namespace Be.Windows.Forms
         /// <returns></returns>
         public virtual char ToChar(byte b)
         {
+            throw new NotImplementedException();
+            /*
             string encoded = _ebcdicEncoding.GetString(new byte[] { b });
             return encoded.Length > 0 ? encoded[0] : '.';
+            */
         }
 
         /// <summary>
@@ -88,8 +92,11 @@ namespace Be.Windows.Forms
         /// <returns></returns>
         public virtual byte ToByte(char c)
         {
+            throw new NotImplementedException();
+            /*
             byte[] decoded = _ebcdicEncoding.GetBytes(new char[] { c });
             return decoded.Length > 0 ? decoded[0] : (byte)0;
+            */
         }
 
         /// <summary>

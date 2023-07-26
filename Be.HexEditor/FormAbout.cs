@@ -1,15 +1,11 @@
 using System;
-using System.Drawing;
-using System.Collections;
-using System.ComponentModel;
-using System.Windows.Forms;
 
 namespace Be.HexEditor
 {
-	/// <summary>
-	/// Summary description for FormAbout.
-	/// </summary>
-	public class FormAbout : Core.FormEx
+    /// <summary>
+    /// Summary description for FormAbout.
+    /// </summary>
+    public class FormAbout : Core.FormEx
 	{
 		private Be.HexEditor.UCAbout ucAbout1;
 		private System.Windows.Forms.Button btnOK;
@@ -27,8 +23,7 @@ namespace Be.HexEditor
 
 			//
 			// TODO: Add any constructor code after InitializeComponent call
-			//
-            
+			//            
 		}
 
 		/// <summary>
@@ -43,6 +38,7 @@ namespace Be.HexEditor
                     components.Dispose();
                 }
             }
+
             base.Dispose(disposing);
         }
 
@@ -85,7 +81,6 @@ namespace Be.HexEditor
             this.Load += new System.EventHandler(this.FormAbout_CorrectWidth);
             this.Resize += new System.EventHandler(this.FormAbout_CorrectWidth);
             this.ResumeLayout(false);
-
 		}
 		#endregion
 

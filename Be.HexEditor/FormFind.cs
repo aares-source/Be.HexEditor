@@ -4,9 +4,9 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-using Be.Windows.Forms;
 using System.Collections.Generic;
 using System.Text;
+using Be.Windows.Forms;
 
 namespace Be.HexEditor
 {
